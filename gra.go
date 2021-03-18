@@ -16,11 +16,15 @@ const (
 // ComputeGRGs compute grey relational grades series by series
 // By default, compute the grades along with row
 func ComputeGRGs(values [][]float64, axis axis) [][]float64 {
-	valuesInput := copyValuesUseCopy(values)
 	if axis == AxisColumn {
-		valuesInput = t(values)
+		return computeGRGs(t(values))
+	} else {
+		return computeGRGs(values)
 	}
+}
 
+func computeGRGs(values [][]float64) [][]float64 {
+	valuesInput := copyValuesUseCopy(values)
 	r, _ := shape(valuesInput)
 
 	res := make([][]float64, r)
